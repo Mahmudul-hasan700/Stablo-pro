@@ -5,7 +5,6 @@ import PostList from "@/components/postlist";
 import SearchInput from "@/components/ui/search";
 import { searchquery } from "@/lib/sanity/groq";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
 import useSWR from "swr";
 import { fetcher } from "@/lib/sanity/client";
 
@@ -14,30 +13,27 @@ export default function Search(props) {
   const searchParams = useSearchParams();
   const query = searchParams.get("q") || null;
 
-  const [timer, setTimer] = useState(null);
   const { data, error } = useSWR(
     [searchquery, { query: query }],
     fetcher
   );
 
   const handleChange = e => {
-    clearTimeout(timer);
-    const newTimer = setTimeout(() => {
-      router.push(`/search?q=${e.target.value}`);
-    }, 500);
-    setTimer(newTimer);
+    const newQuery = e.target.value;
+    console.log("New search query:", newQuery);
+    router.push(`/search?q=${newQuery}`);
   };
 
   return (
     <>
       <div>
-        <div className="flex items-center justify-center mt-14 ">
-          <h1 className="text-xl font-semibold tracking-tight lg:leading-tight text-brand-primary lg:text-3xl dark:text-white">
+        <div className="mt-14 flex items-center justify-center ">
+          <h1 className="text-brand-primary text-xl font-semibold tracking-tight dark:text-white lg:text-3xl lg:leading-tight">
             {query ? `Search results for "${query}"` : "Search"}
           </h1>
         </div>
 
-        <div className="max-w-md mx-auto mt-5">
+        <div className="mx-4 mt-5 max-w-md md:mx-auto">
           <SearchInput
             q={query}
             handleChange={handleChange}
@@ -48,21 +44,21 @@ export default function Search(props) {
 
       <Container>
         {!query && (
-          <div className="flex items-center justify-center h-40">
-            <span className="text-lg text-gray-500">¯\_(ツ)_/¯</span>
+          <div className="flex h-40 items-center justify-center">
+            <span className="text-lg text-gray-500">Â¯\_(ã)_/Â¯</span>
           </div>
         )}
         {query && data?.length === 0 && (
-          <div className="flex items-center justify-center h-40">
+          <div className="flex h-40 items-center justify-center">
             <span className="text-lg text-gray-500">
               No posts found for {query}. Try again!
             </span>
           </div>
         )}
         {query && !data && (
-          <div className="flex items-center justify-center h-40">
+          <div className="flex h-40 items-center justify-center">
             <svg
-              className="w-6 h-6 text-gray-500 animate-spin"
+              className="h-6 w-6 animate-spin text-gray-500"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24">
@@ -83,7 +79,7 @@ export default function Search(props) {
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
           {data &&
             data.map((post, index) => (
-              <PostList key={post._id} post={post} aspect="square" />
+              <PostList key={post._id} post={post} aspect="landscape" />
             ))}
         </div>
       </Container>

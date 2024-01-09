@@ -13,14 +13,7 @@ export default function Navbar(props) {
   const leftmenu = [
     {
       label: "Home",
-      href: "#",
-      children: [
-        { title: "Home Default", path: "/" },
-        { title: "Home Alternate", path: "/home/alt" },
-        { title: "Home Minimal", path: "/home/minimal" },
-        { title: "Home Lifestyle", path: "/home/lifestyle" },
-        { title: "Home Two Column", path: "/home/2-col" }
-      ]
+      href: "/"
     },
     {
       label: "About",
@@ -34,49 +27,12 @@ export default function Navbar(props) {
 
   const rightmenu = [
     {
-      label: "Pages",
-      href: "#",
-      children: [
-        {
-          title: "Category Page",
-          path: "/category/personal-growth"
-        },
-        {
-          title: "Author Page",
-          path: "/author/mario-sanchez"
-        },
-        {
-          title: "Search Page",
-          path: "/search?q=life"
-        },
-        { title: "Archive - Pagination", path: "/archive" },
-        {
-          title: "Single Post - Default",
-          path: "/post/10-simple-practices-that-will-help-you-get-1-better-every-day"
-        },
-        {
-          title: "Single Post - Minimal",
-          path: "/post/minimal/architectural-engineering-wonders-of-the-modern-era-for-your-inspiration"
-        },
-        {
-          title: "Single Post - Lifestyle",
-          path: "/post/lifestyle/there-s-nothing-new-about-undermining-women-s-autonomy"
-        },
-        {
-          title: "Single Post - Sidebar",
-          path: "/post/sidebar/lessons-of-happiness-i-learned-from-a-mountain-village"
-        }
-      ]
+      label: "Search",
+      href: "/search"
     },
     {
-      label: "Free Version",
-      href: "https://stablo.web3templates.com/",
-      external: true
-    },
-    {
-      label: "Purchase",
-      href: "https://web3templates.com/templates/stablo-minimal-blog-website-template",
-      external: true
+      label: "Posts",
+      href: "/archive"
     }
   ];
 
@@ -112,7 +68,7 @@ export default function Navbar(props) {
                   ))}
                 </div>
                 <div className="flex w-full items-center justify-between md:w-auto">
-                  <Link href="/" className="w-28 dark:hidden">
+                  <Link href="/" className="w-10 dark:hidden">
                     {props.logo ? (
                       <Image
                         {...urlForImage(props.logo)}
@@ -126,7 +82,7 @@ export default function Navbar(props) {
                       </span>
                     )}
                   </Link>
-                  <Link href="/" className="hidden w-28 dark:block">
+                  <Link href="/" className="hidden w-10 dark:block">
                     {props.logoalt ? (
                       <Image
                         {...urlForImage(props.logoalt)}

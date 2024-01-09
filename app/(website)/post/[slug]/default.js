@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/container";
@@ -28,6 +29,10 @@ export default function Post(props) {
 
   return (
     <>
+      <Head>
+        <title>{post?.seo?.metaTitle || post?.title}</title>
+        <meta name="description" content={post?.seo?.metaDescription || ''} />       
+      </Head>
       <Container className="!pt-0">
         <div className="mx-auto max-w-screen-md ">
           <div className="flex justify-center">
@@ -76,7 +81,7 @@ export default function Post(props) {
         </div>
       </Container>
 
-      <div className="relative z-0 mx-auto aspect-video max-w-screen-lg overflow-hidden lg:rounded-lg">
+      <div className="rounded-md md:mx-auto relative z-0 mx-4 max-w-screen-md aspect-video overflow-hidden lg:rounded-lg">
         {imageProps && (
           <Image
             src={imageProps.src}

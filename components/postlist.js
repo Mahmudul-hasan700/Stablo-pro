@@ -53,7 +53,7 @@ export default function PostList({
                 })}
                 alt={post.mainImage?.alt || "Thumbnail"}
                 priority={preloadImage ? true : false}
-                className="object-cover transition-all"
+                className="bg-cover object-cover transition-all"
                 fill
                 sizes="(max-width: 768px) 30vw, 33vw"
               />
