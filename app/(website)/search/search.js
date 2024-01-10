@@ -14,14 +14,13 @@ export default function Search(props) {
   const query = searchParams.get("q") || null;
 
   const { data, error } = useSWR(
-    [searchquery, { query: query }],
+    query ? [searchquery, { query }] : null,
     fetcher
   );
 
-  const handleChange = e => {
-    const newQuery = e.target.value;
-    console.log("New search query:", newQuery);
-    router.push(`/search?q=${newQuery}`);
+  const handleChange = (e) => {
+    const searchTerm = e.target.value;
+    router.push(`/search?q=${searchTerm}`);
   };
 
   return (
@@ -45,7 +44,7 @@ export default function Search(props) {
       <Container>
         {!query && (
           <div className="flex h-40 items-center justify-center">
-            <span className="text-lg text-gray-500">Â¯\_(ã)_/Â¯</span>
+            <span className="text-lg text-gray-500">¯\_(ツ)_/¯</span>
           </div>
         )}
         {query && data?.length === 0 && (
