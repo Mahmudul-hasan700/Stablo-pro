@@ -1,6 +1,10 @@
 import PostPage from "./default";
 
-import { getAllPostsSlugs, getPostBySlug } from "@/lib/sanity/client";
+import {
+  getAllPostsSlugs,
+  getPostBySlug,
+  getTopCategories,
+} from "@/lib/sanity/client";
 
 export async function generateStaticParams() {
   return await getAllPostsSlugs();
@@ -13,7 +17,8 @@ export async function generateMetadata({ params }) {
 
 export default async function PostDefault({ params }) {
   const post = await getPostBySlug(params.slug);
-  return <PostPage post={post} />;
+  const categories = await getTopCategories();
+  return <PostPage post={post} categories={categories} />;
 }
 
 // export const revalidate = 60;

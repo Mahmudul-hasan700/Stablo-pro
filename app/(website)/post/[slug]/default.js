@@ -1,24 +1,22 @@
 import Head from 'next/head';
-import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/container";
 import { notFound } from "next/navigation";
 import { PortableText } from "@/lib/sanity/plugins/portabletext";
 import { urlForImage } from "@/lib/sanity/image";
-import { parseISO, format } from "date-fns";
-
-import CategoryLabel from "@/components/blog/category";
+import { format, parseISO } from "date-fns";
+import Image from "next/image";
 import AuthorCard from "@/components/blog/authorCard";
+import Sidebar from "@/components/sidebar";
 
 export default function Post(props) {
-  const { loading, post } = props;
+  const { loading, post, categories } = props;
 
   const slug = post?.slug;
 
   if (!loading && !slug) {
     notFound();
   }
-
   const imageProps = post?.mainImage
     ? urlForImage(post?.mainImage)
     : null;
@@ -29,16 +27,8 @@ export default function Post(props) {
 
   return (
     <>
-      <Head>
-        <title>{post?.seo?.metaTitle || post?.title}</title>
-        <meta name="description" content={post?.seo?.metaDescription || ''} />       
-      </Head>
       <Container className="!pt-0">
         <div className="mx-auto max-w-screen-md ">
-          <div className="flex justify-center">
-            <CategoryLabel categories={post.categories} />
-          </div>
-
           <h1 className="text-brand-primary mb-3 mt-2 text-center text-3xl font-semibold tracking-tight dark:text-white lg:text-4xl lg:leading-snug">
             {post.title}
           </h1>
@@ -93,10 +83,10 @@ export default function Post(props) {
           />
         )}
       </div>
-
-      <Container>
-        <article className="mx-auto max-w-screen-md ">
-          <div className="prose mx-auto my-3 dark:prose-invert prose-a:text-blue-600">
+      {/* {post?.mainImage && <MainImage image={post.mainImage} />} */}
+      <div className="mx-auto mt-14 flex max-w-screen-xl flex-col gap-5 px-5 md:flex-row">
+        <article className="flex-1">
+          <div className="prose prose-lg mx-auto my-3 dark:prose-invert prose-a:text-blue-500">
             {post.body && <PortableText value={post.body} />}
           </div>
           <div className="mb-7 mt-7 flex justify-center">
@@ -108,7 +98,15 @@ export default function Post(props) {
           </div>
           {post.author && <AuthorCard author={post.author} />}
         </article>
-      </Container>
+        <aside className="sticky top-0 w-full self-start md:w-96">
+          <Sidebar
+            categories={categories}
+            related={post.related.filter(
+              item => item.slug.current !== slug
+            )}
+          />
+        </aside>
+      </div>
     </>
   );
 }
