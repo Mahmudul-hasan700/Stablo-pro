@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://codewithhridoy.vercel.app/
+Host: https://codewithhridoy.vercel.app
 
 # Sitemaps
 Sitemap: https://codewithhridoy.vercel.app/sitemap.xml

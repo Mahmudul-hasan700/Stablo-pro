@@ -49,7 +49,7 @@ export default function About({ authors, settings }) {
           We hope that you find our content informative and helpful, and we look forward to helping you on your coding journey.
         </p>
         <p>
-          <Link href="/contact">Get in touch</Link>
+        <Link href="/contact">Get in touch</Link>
         </p>
       </div>
     </Container>
