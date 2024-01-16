@@ -12,13 +12,8 @@ const nextConfig = {
     ignoreBuildErrors: process.env.VERCEL_ENV === "production"
   },
   eslint: {
-    // Set this to false if you want production builds to abort if there's lint errors
+    /// Set this to false if you want production builds to abort if there's lint errors
     ignoreDuringBuilds: process.env.VERCEL_ENV === "production"
-  },
-  generateMetadata: async ({ params }) => {
-    return {
-      metadataBase: process.env.NEXT_PUBLIC_SITE_URL || "https://stablo-pro-one.vercel.app"
-    };
   }
 };
 
