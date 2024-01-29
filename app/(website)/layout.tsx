@@ -1,5 +1,5 @@
-// layout.ts
 import { Analytics } from '@vercel/analytics/react';
+import { Metadata } from 'next'
 import "@/styles/tailwind.css";
 import { Providers } from "./providers";
 import { cx } from "@/utils/all";
@@ -24,39 +24,54 @@ export async function sharedMetaData(params) {
 
   return {
     title: {
-      default: settings?.title || "Stablo Pro - Blog Template for Next.js & Sanity CMS",
-      template: "%s | codewithhridoy"
+      default:
+        settings?.title ||
+        "Codewithhridoy | Creative Coding Blog - HTML CSS & JavaScript.",
+      template: "codewithhridoy"
     },
-    description: settings?.description || "Pro version of Stablo, popular open-source next.js and sanity blog template",
-    keywords: ["Next.js", "Sanity", "Tailwind CSS"],
-    authors: [{ name: "Surjith" }],
+    description:
+      settings?.description ||
+      "Explore innovative HTML, CSS, and JavaScript tutorials at Codewithhridoy, your go-to creative coding blog for insightful tips and tricks.",
+    keywords: [
+      "Creative coding",
+      "HTML tutorials",
+      "CSS tricks",
+      "JavaScript techniques",
+      "Web development tips",
+      "Coding blog",
+      "Frontend development",
+      "Web design inspiration",
+      "Code tutorials",
+      "Programming resources",
+      "Next.js",
+      "Sanity",
+      "Tailwind CSS",
+      "Coding",
+      "Webdeveloper",
+      "Webdeveloping"
+    ],
+    authors: [{ name: "Hridoy" }],
     canonical: settings?.url,
     openGraph: {
-      type: "website",
-      locale: "en_US",
-      url: settings?.url,
-      title: settings?.title || "Stablo Template",
-      description: settings?.description || "Pro version of Stablo, popular open-source next.js and sanity blog template",
+      type: 'website',
+      url: baseURL,
+      title: settings?.title || "Codewithhridoy | Creative Coding Blog - HTML CSS & JavaScript",
+      description: settings?.description || "Explore innovative HTML, CSS, and JavaScript tutorials at Codewithhridoy, your go-to creative coding blog for insightful tips and tricks.",
       images: [
         {
-          url: urlForImage(settings?.openGraphImage)?.src || "/img/opengraph.jpg",
+          url:
+            urlForImage(settings?.openGraphImage)?.src ||
+            "/opengraph.jpeg",
           width: 800,
           height: 600,
-          alt: "Open Graph Image"
+          alt: "Codewithhridoy"
         }
       ]
     },
     twitter: {
-      card: "summary_large_image",
-      site: "@yourTwitterHandle",  // Add your Twitter handle here
-      title: settings?.title || "Stablo Template",
-      description: settings?.description || "Pro version of Stablo, popular open-source next.js and sanity blog template",
-      image: {
-        src: urlForImage(settings?.openGraphImage)?.src || "/img/opengraph.jpg",
-        width: 800,
-        height: 600,
-        alt: "Twitter Image"
-      }
+      handle: "@your_twitter_handle", // Add your Twitter handle here
+      site: "@your_twitter_handle", // Add your Twitter handle here
+      cardType: "summary_large_image"
     },
     robots: {
       index: true,
@@ -71,15 +86,15 @@ export async function generateMetadata({ params }) {
 
 export default async function Layout({ children, params }) {
   const settings = await getSettings();
-  const metaData = await sharedMetaData(params);
-
   return (
-    <html lang="en" suppressHydrationWarning className={cx(inter.variable, lora.variable)}>
-      
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={cx(inter.variable, lora.variable)}>
       <body className="text-gray-800 antialiased dark:bg-black dark:text-gray-400">
         <Providers>
           <GetNavbar {...settings} />
-          <div>{children}</div>
+          {children}
           <Analytics />
           <Footer {...settings} />
         </Providers>
