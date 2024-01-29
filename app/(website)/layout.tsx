@@ -1,5 +1,5 @@
 // layout.ts
-
+import { Analytics } from '@vercel/analytics/react';
 import "@/styles/tailwind.css";
 import { Providers } from "./providers";
 import { cx } from "@/utils/all";
@@ -7,7 +7,6 @@ import { Inter, Lora } from "next/font/google";
 import { getSettings } from "@/lib/sanity/client";
 import Footer from "@/components/footer";
 import GetNavbar from "@/components/getnavbar";
-import Head from "next/head";  // Import Head from next/head
 import { urlForImage } from "@/lib/sanity/image";
 
 const inter = Inter({
@@ -76,36 +75,12 @@ export default async function Layout({ children, params }) {
 
   return (
     <html lang="en" suppressHydrationWarning className={cx(inter.variable, lora.variable)}>
-      <Head>
-        <title>{metaData.title.default}</title>
-        <meta name="description" content={metaData.description} />
-        <meta name="keywords" content={metaData.keywords.join(",")} />
-        <meta name="author" content={metaData.authors[0].name} />
-
-        {/* Open Graph tags */}
-        <meta property="og:type" content={metaData.openGraph.type} />
-        <meta property="og:locale" content={metaData.openGraph.locale} />
-        <meta property="og:url" content={metaData.openGraph.url} />
-        <meta property="og:title" content={metaData.openGraph.title} />
-        <meta property="og:description" content={metaData.openGraph.description} />
-        {metaData.openGraph.images.map((image, index) => (
-          <meta key={index} property="og:image" content={image.url} />
-        ))}
-
-        {/* Twitter tags */}
-        <meta name="twitter:card" content={metaData.twitter.card} />
-        <meta name="twitter:site" content={metaData.twitter.site} />
-        <meta name="twitter:title" content={metaData.twitter.title} />
-        <meta name="twitter:description" content={metaData.twitter.description} />
-        <meta name="twitter:image" content={metaData.twitter.image.src} />
-
-        {/* Robots meta tag */}
-        <meta name="robots" content={`${metaData.robots.index ? "index" : "noindex"}, ${metaData.robots.follow ? "follow" : "nofollow"}`} />
-      </Head>
+      
       <body className="text-gray-800 antialiased dark:bg-black dark:text-gray-400">
         <Providers>
           <GetNavbar {...settings} />
           <div>{children}</div>
+          <Analytics />
           <Footer {...settings} />
         </Providers>
       </body>
